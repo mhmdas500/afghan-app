@@ -1,1 +1,259 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>افغان اپ</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',sans-serif}
+body{background:#0f172a;min-height:100vh;display:flex;justify-content:center;padding:15px}
+.auth-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;justify-content:center;align-items:center;padding:20px;z-index:1000}
+.auth-box{background:#fff;border-radius:25px;padding:35px 25px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.auth-logo{text-align:center;margin-bottom:20px}
+.auth-logo-icon{width:75px;height:75px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);border-radius:22px;display:inline-flex;justify-content:center;align-items:center;color:#fff;font-size:2rem;margin-bottom:12px}
+.auth-title{font-size:1.5rem;font-weight:bold;color:#1e3a8a;margin-bottom:5px}
+.auth-subtitle{font-size:.78rem;color:#64748b}
+.auth-tabs{display:flex;gap:5px;background:#f1f5f9;border-radius:14px;padding:5px;margin-bottom:20px}
+.auth-tab{flex:1;padding:11px;text-align:center;border-radius:10px;font-size:.85rem;font-weight:bold;cursor:pointer;color:#64748b;border:none;background:transparent;font-family:inherit}
+.auth-tab.active{background:#fff;color:#3b82f6}
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-input-group{display:flex;flex-direction:column;gap:6px}
+.auth-label{font-size:.8rem;font-weight:bold;color:#1e293b}
+.auth-input{width:100%;padding:13px 15px;border:1.5px solid #e2e8f0;border-radius:12px;font-family:inherit;font-size:.9rem;outline:none;background:#f8fafc}
+.auth-btn{width:100%;padding:14px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:bold;cursor:pointer}
+.auth-error{background:#fee2e2;color:#ef4444;padding:10px 14px;border-radius:10px;font-size:.8rem;display:none}
+.app-container{width:100%;max-width:420px;background:#f8fafc;border-radius:30px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5);position:relative;padding-bottom:80px;min-height:700px;display:none}
+.app-container.show{display:block}
+.app-header{display:flex;justify-content:space-between;align-items:center;padding:20px;background:#1e3a8a;color:#fff;border-bottom-left-radius:20px;border-bottom-right-radius:20px}
+.user-name{font-weight:bold;font-size:1rem}
+.user-sub{font-size:.75rem;opacity:.8}
+.profile-pic{width:38px;height:38px;border-radius:50%;border:2px solid #fff}
+.tab-content{display:none}
+.tab-content.active-tab{display:block}
+.balance-card{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;margin:-10px 20px 20px 20px;padding:25px;border-radius:20px}
+.balance-header{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:10px;opacity:.9}
+.balance-amount{display:flex;align-items:baseline;gap:5px;margin-bottom:5px}
+.amount-number{font-size:1.8rem;font-weight:bold}
+.balance-dollar{font-size:.85rem;opacity:.8;margin-bottom:20px}
+.balance-actions{display:flex;gap:10px}
+.btn-primary,.btn-secondary{flex:1;padding:12px;border:none;border-radius:10px;font-family:inherit;font-size:.85rem;cursor:pointer;font-weight:bold}
+.btn-primary{background:#fff;color:#1e3a8a}
+.btn-secondary{background:rgba(255,255,255,.2);color:#fff}
+.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 20px;margin-bottom:20px}
+.action-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.icon-box{width:50px;height:50px;background:#fff;border-radius:15px;display:flex;justify-content:center;align-items:center;color:#3b82f6;font-size:1.2rem;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.action-item span{font-size:.65rem;color:#64748b;text-align:center}
+.promo-banner{background:linear-gradient(135deg,#4c1d95,#7c3aed);margin:0 20px 20px 20px;padding:20px;border-radius:20px;color:#fff}
+.promo-text h3{font-size:.95rem;margin-bottom:5px}
+.promo-text p{font-size:.7rem;margin-bottom:10px;opacity:.9}
+.promo-btn{display:inline-block;background:#fff;color:#4c1d95;padding:6px 12px;border-radius:8px;font-size:.7rem;font-weight:bold;cursor:pointer}
+.page-header{display:flex;align-items:center;gap:15px;padding:18px 20px;background:#fff;border-bottom:1px solid #f1f5f9}
+.page-header h3{font-size:1.05rem;color:#1e293b}
+.section-title{font-size:.9rem;font-weight:bold;color:#1e293b;padding:15px 20px 10px 20px}
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px 15px 20px}
+.product-card{background:#fff;border-radius:15px;padding:15px 10px;text-align:center;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.product-icon{font-size:1.5rem;margin-bottom:5px}
+.product-name{font-weight:bold;font-size:.8rem;color:#1e293b}
+.product-price{color:#22c55e;font-weight:bold;font-size:.85rem;margin-top:5px}
+.transaction-item{background:#fff;border-radius:12px;padding:14px;margin:0 20px 10px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,.04);border-right:4px solid #ef4444}
+.transaction-item.credit{border-right-color:#22c55e}
+.trans-title{font-weight:bold;color:#1e293b;font-size:.85rem}
+.trans-date{font-size:.7rem;color:#94a3b8;margin-top:3px}
+.trans-amount{font-weight:bold;font-size:.9rem;color:#ef4444}
+.trans-amount.credit{color:#22c55e}
+.empty-state{text-align:center;padding:40px 20px;color:#94a3b8;font-size:.85rem}
+.menu-list{padding:20px}
+.menu-item{background:#fff;border-radius:12px;padding:15px 18px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.menu-item-right{display:flex;align-items:center;gap:12px}
+.menu-icon-box{width:40px;height:40px;border-radius:10px;display:flex;justify-content:center;align-items:center;font-size:1rem}
+.menu-title{font-weight:bold;color:#1e293b;font-size:.9rem}
+.menu-sub{font-size:.7rem;color:#94a3b8;margin-top:2px}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 5px;border-top:1px solid #e2e8f0}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;color:#94a3b8;font-size:.6rem;cursor:pointer;flex:1}
+.nav-item i{font-size:1.25rem}
+.nav-item.active{color:#3b82f6}
+.admin-screen{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#f1f5f9;z-index:2000;overflow-y:auto;padding:15px}
+.admin-screen.show{display:block}
+.admin-login-box{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#dc2626,#ef4444);display:flex;justify-content:center;align-items:center;padding:20px}
+.admin-login-card{background:#fff;border-radius:25px;padding:40px 30px;width:100%;max-width:400px;text-align:center}
+.admin-login-icon{width:80px;height:80px;background:linear-gradient(135deg,#dc2626,#ef4444);border-radius:22px;display:inline-flex;justify-content:center;align-items:center;color:#fff;font-size:2.2rem;margin-bottom:20px}
+.admin-login-title{font-size:1.5rem;color:#1e293b;margin-bottom:8px}
+.admin-login-sub{font-size:.8rem;color:#64748b;margin-bottom:25px}
+.admin-login-input{width:100%;padding:14px;border:1.5px solid #e2e8f0;border-radius:12px;font-family:inherit;font-size:.95rem;outline:none;text-align:center;margin-bottom:15px}
+.admin-login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:bold;cursor:pointer}
+.admin-login-hint{font-size:.72rem;color:#94a3b8;margin-top:15px}
+.admin-header-bar{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;padding:20px;border-radius:20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.admin-header-bar h1{font-size:1.1rem}
+.admin-close-btn{background:rgba(255,255,255,.2);color:#fff;border:none;padding:10px 18px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:.85rem;font-weight:bold}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.stat-card{background:#fff;border-radius:15px;padding:18px;text-align:center}
+.stat-icon{font-size:2rem}
+.stat-num{font-size:1.4rem;font-weight:bold;color:#1e293b;margin-top:5px}
+.stat-lbl{font-size:.72rem;color:#64748b}
+.admin-title{font-size:1rem;font-weight:bold;color:#1e293b;margin:20px 0 10px 0;display:flex;align-items:center;gap:8px}
+.badge{background:#dbeafe;color:#1e40af;padding:3px 10px;border-radius:12px;font-size:.7rem}
+.admin-trans-card{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-right:4px solid #22c55e}
+.admin-trans-type{font-weight:bold;color:#1e293b;font-size:.85rem}
+.admin-trans-user{font-size:.72rem;color:#8b5cf6;margin-top:3px;font-weight:bold}
+.admin-trans-date{font-size:.68rem;color:#94a3b8;margin-top:3px}
+.admin-trans-amount{font-weight:bold;font-size:.9rem;color:#ef4444;white-space:nowrap}
+.admin-trans-amount.plus{color:#22c55e}
+.user-card-admin{background:#fff;border-radius:12px;padding:14px;margin-bottom:10px}
+.user-card-name{font-weight:bold;color:#1e293b;font-size:.9rem}
+.user-card-email{font-size:.72rem;color:#64748b;margin-top:3px}
+.user-card-balance{color:#22c55e;font-weight:bold;font-size:.85rem;margin-top:5px}
+.admin-empty{text-align:center;padding:30px;color:#94a3b8;font-size:.85rem;background:#fff;border-radius:12px}
+</style>
+</head>
+<body>
 
+<div class="auth-screen" id="authScreen">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon"><i class="fas fa-wallet"></i></div>
+      <div class="auth-title">افغان اپ</div>
+      <div class="auth-subtitle">همراه مطمئن شما</div>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('login', this)">ورود</button>
+      <button class="auth-tab" onclick="switchAuthTab('signup', this)">ثبت‌نام</button>
+    </div>
+    <div id="loginForm" class="auth-form">
+      <div class="auth-input-group"><label class="auth-label">ایمیل</label><input type="email" id="loginEmail" class="auth-input" placeholder="example@email.com"></div>
+      <div class="auth-input-group"><label class="auth-label">رمز عبور</label><input type="password" id="loginPassword" class="auth-input" placeholder="رمز عبور"></div>
+      <div class="auth-error" id="loginError"></div>
+      <button class="auth-btn" onclick="loginUser()">ورود به حساب</button>
+    </div>
+    <div id="signupForm" class="auth-form" style="display:none;">
+      <div class="auth-input-group"><label class="auth-label">نام و نام خانوادگی</label><input type="text" id="signupName" class="auth-input" placeholder="مثال: اسدالله محمدی"></div>
+      <div class="auth-input-group"><label class="auth-label">ایمیل</label><input type="email" id="signupEmail" class="auth-input" placeholder="example@email.com"></div>
+      <div class="auth-input-group"><label class="auth-label">رمز عبور</label><input type="password" id="signupPassword" class="auth-input" placeholder="حداقل ۶ کاراکتر"></div>
+      <div class="auth-input-group"><label class="auth-label">تکرار رمز</label><input type="password" id="signupPassword2" class="auth-input" placeholder="تکرار رمز"></div>
+      <div class="auth-error" id="signupError"></div>
+      <button class="auth-btn" onclick="signupUser()">ایجاد حساب</button>
+    </div>
+  </div>
+</div>
+
+<div class="app-container" id="appContainer">
+  <header class="app-header">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <i class="fas fa-bars" style="font-size:1.2rem;"></i>
+      <div><span class="user-name" id="headerUsername">کاربر</span><div class="user-sub">به افغان اپ خوش آمدید</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:15px;">
+      <i class="fas fa-bell" style="font-size:1.2rem;"></i>
+      <img src="https://i.pravatar.cc/150?img=12" class="profile-pic">
+    </div>
+  </header>
+
+  <div id="home-tab" class="tab-content active-tab">
+    <section class="balance-card">
+      <div class="balance-header"><span>موجودی کل شما</span><i class="fas fa-wallet"></i></div>
+      <div class="balance-amount"><span class="amount-number" id="balanceDisplay">0</span><span style="font-size:.9rem;">تومان</span></div>
+      <div class="balance-dollar" id="balanceDollar">≈ 0 دلار</div>
+      <div class="balance-actions">
+        <button class="btn-primary" onclick="chargeAccount()"><i class="fas fa-plus"></i> شارژ حساب</button>
+        <button class="btn-secondary" onclick="switchTab('transactions', null)">جزئیات</button>
+      </div>
+    </section>
+    <section class="quick-actions">
+      <div class="action-item" onclick="buyItem('خرید شارژ', 100000)"><div class="icon-box"><i class="fas fa-mobile-alt"></i></div><span>خرید شارژ</span></div>
+      <div class="action-item" onclick="buyItem('پرداخت قبض', 350000)"><div class="icon-box"><i class="fas fa-file-invoice"></i></div><span>پرداخت قبض</span></div>
+      <div class="action-item" onclick="buyItem('کارت به کارت', 2500000)"><div class="icon-box"><i class="fas fa-credit-card"></i></div><span>کارت به کارت</span></div>
+      <div class="action-item" onclick="buyItem('درگاه پرداخت', 500000)"><div class="icon-box"><i class="fas fa-exchange-alt"></i></div><span>درگاه پرداخت</span></div>
+      <div class="action-item" onclick="buyItem('درخواست قرض', 10000000)"><div class="icon-box"><i class="fas fa-user-check"></i></div><span>درخواست قرض</span></div>
+      <div class="action-item" onclick="buyItem('کمک نیازمندان', 50000)"><div class="icon-box"><i class="fas fa-hand-holding-heart"></i></div><span>کمک نیازمندان</span></div>
+      <div class="action-item" onclick="buyItem('سرمایه‌گذاری', 1000000)"><div class="icon-box"><i class="fas fa-chart-line"></i></div><span>سرمایه‌گذاری</span></div>
+      <div class="action-item" onclick="buyItem('انتقال پول', 2000000)"><div class="icon-box"><i class="fas fa-money-bill-wave"></i></div><span>انتقال پول</span></div>
+    </section>
+    <div class="promo-banner">
+      <div class="promo-text">
+        <h3>سرمایه‌گذاری هوشمند با افغان اپ</h3>
+        <p>هر ۱۰۰ میلیون تومان سود ماهانه ۵ میلیون تومان</p>
+        <span class="promo-btn" onclick="buyItem('سرمایه‌گذاری', 1000000)">شروع سرمایه‌گذاری</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="products-tab" class="tab-content">
+    <div class="page-header"><h3>📦 بسته‌های انترنت</h3></div>
+    <div class="section-title">🇦🇫 افغانستان</div>
+    <div class="products-grid">
+      <div class="product-card" onclick="buyItem('خرید بسته انترنت - افغانستان', 150)"><div class="product-icon">📱</div><div class="product-name">سلام ۵ گیگ</div><div class="product-price">۱۵۰ افغانی</div></div>
+      <div class="product-card" onclick="buyItem('خرید بسته انترنت - افغانستان', 500)"><div class="product-icon">📱</div><div class="product-name">اتصالات ۲۰ گیگ</div><div class="product-price">۵۰۰ افغانی</div></div>
+    </div>
+    <div class="section-title">🇮🇷 ایران</div>
+    <div class="products-grid">
+      <div class="product-card" onclick="buyItem('خرید بسته انترنت - ایران', 100000)"><div class="product-icon">📱</div><div class="product-name">همراه اول</div><div class="product-price">۱۰۰,۰۰۰ تومان</div></div>
+      <div class="product-card" onclick="buyItem('خرید بسته انترنت - ایران', 200000)"><div class="product-icon">📱</div><div class="product-name">ایرانسل</div><div class="product-price">۲۰۰,۰۰۰ تومان</div></div>
+    </div>
+    <div class="section-title">🇹🇷 ترکیه</div>
+    <div class="products-grid">
+      <div class="product-card" onclick="buyItem('خرید بسته انترنت - ترکیه', 850000)"><div class="product-icon">📱</div><div class="product-name">ترکسل</div><div class="product-price">۸۵۰,۰۰۰ تومان</div></div>
+    </div>
+  </div>
+
+  <div id="transactions-tab" class="tab-content">
+    <div class="page-header"><h3>💳 تراکنش‌های من</h3></div>
+    <div id="myTransactions" style="padding:15px 0;"></div>
+  </div>
+
+  <div id="more-tab" class="tab-content">
+    <div class="page-header"><h3>☰ منو</h3></div>
+    <div class="menu-list">
+      <div class="menu-item" onclick="openAdminPanel()">
+        <div class="menu-item-right">
+          <div class="menu-icon-box" style="background:#fee2e2;color:#ef4444;"><i class="fas fa-user-shield"></i></div>
+          <div><div class="menu-title">پنل مدیریت</div><div class="menu-sub">ورود با رمز مدیر</div></div>
+        </div>
+        <i class="fas fa-chevron-left" style="color:#94a3b8;"></i>
+      </div>
+      <div class="menu-item" onclick="logoutUser()">
+        <div class="menu-item-right">
+          <div class="menu-icon-box" style="background:#fef2f2;color:#ef4444;"><i class="fas fa-sign-out-alt"></i></div>
+          <div><div class="menu-title" style="color:#ef4444;">خروج از حساب</div><div class="menu-sub">خروج از حساب کاربری</div></div>
+        </div>
+        <i class="fas fa-chevron-left" style="color:#94a3b8;"></i>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="switchTab('home', this)"><i class="fas fa-wallet"></i><span>کیف پول</span></div>
+    <div class="nav-item" onclick="switchTab('products', this)"><i class="fas fa-shopping-cart"></i><span>محصولات</span></div>
+    <div class="nav-item" onclick="switchTab('transactions', this)"><i class="fas fa-exchange-alt"></i><span>تراکنش‌ها</span></div>
+    <div class="nav-item" onclick="switchTab('more', this)"><i class="fas fa-bars"></i><span>منو</span></div>
+  </nav>
+</div>
+
+<div class="admin-screen" id="adminScreen">
+  <div class="admin-login-box" id="adminLoginBox">
+    <div class="admin-login-card">
+      <div class="admin-login-icon"><i class="fas fa-user-shield"></i></div>
+      <div class="admin-login-title">پنل مدیریت</div>
+      <div class="admin-login-sub">رمز عبور مدیر را وارد کنید</div>
+      <input type="password" id="adminPassword" class="admin-login-input" placeholder="رمز عبور">
+      <div id="adminLoginError" style="background:#fee2e2;color:#ef4444;padding:10px;border-radius:10px;font-size:.8rem;display:none;margin-bottom:15px;">رمز اشتباه است</div>
+      <button class="admin-login-btn" onclick="adminLogin()">ورود به پنل</button>
+      <div class="admin-login-hint">رمز: admin1234</div>
+      <button onclick="closeAdminPanel()" style="margin-top:15px;background:transparent;border:none;color:#64748b;font-family:inherit;cursor:pointer;">بازگشت به اپ</button>
+    </div>
+  </div>
+  <div id="adminMain" style="display:none;">
+    <div class="admin-header-bar">
+      <h1>⚙️ پنل مدیریت</h1>
+      <button class="admin-close-btn" onclick="closeAdminPanel()">✖ بستن</button>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-num" id="adUsers">0</div><div class="stat-lbl">کاربران</div></div>
+      <div class="stat-card"><div class="stat-icon">💳</div><div class="stat-num" id="adTrans">0</div><div class="stat-lbl">تراکنش‌ها</div></div>
+      <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-num" id="adBalance">0</div><div class="stat-lbl">موجودی کل</div></div>
+      <div class="stat-card"><div class="stat-icon">📦</div><div class="stat-num" id="adProducts">0</div><div class="stat-lbl">محصولات</div></div>
+    </div>
+    <div class="admin-title">📱 خرید شارژ <span class="badge" id="c-recharge">0</span></div><div id="l-recharge"></div>
+    <div class="admin-title">📦 خرید بسته انترنت <span class="badge" id="c-netpack">0</span></div><div id="l-netpack"></div>
+    <div class="admin-title">💳 پرداخت قبض <span class="badge" id="c-bill">0</span></div><div id="l-bill"></div>
+    <div class="admin-title">🔄 کارت به کارت <span class="badge" id
