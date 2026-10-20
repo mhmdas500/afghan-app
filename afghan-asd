@@ -1,0 +1,372 @@
+<div id="app"></div>
+<script>
+const siteData = {
+  settings: {
+    primaryColor: "#667eea",
+    secondaryColor: "#764ba2",
+    logo: "🌟",
+    siteName: "سایت من"
+  },
+  hero: {
+    title: "به سایت حرفه‌ای من خوش آمدید ✨",
+    subtitle: "طراحی مدرن، سریع و ریسپانسیو",
+    btn1Text: "شروع کنید",
+    btn1Link: "#services",
+    btn2Text: "تماس با ما",
+    btn2Link: "#contact"
+  },
+  about: {
+    title: "درباره",
+    titleHighlight: "ما",
+    subtitle: "یک تیم کوچک با ایده‌های بزرگ",
+    cards: [
+      { icon: "💡", title: "خلاقیت", text: "ایده‌های نو" },
+      { icon: "⚡", title: "سرعت", text: "بارگذاری سریع" },
+      { icon: "🛡️", title: "امنیت", text: "استانداردهای امنیتی" }
+    ]
+  },
+  services: {
+    title: "خدمات",
+    titleHighlight: "ما",
+    subtitle: "هر آنچه نیاز دارید",
+    cards: [
+      { icon: "🎨", title: "طراحی UI/UX", text: "رابط زیبا" },
+      { icon: "💻", title: "توسعه وب", text: "سایت مدرن" },
+      { icon: "📱", title: "اپلیکیشن", text: "iOS و اندروید" },
+      { icon: "📈", title: "سئو", text: "بهینه‌سازی" }
+    ]
+  },
+  stats: [
+    { number: 250, label: "پروژه موفق" },
+    { number: 180, label: "مشتری راضی" },
+    { number: 12, label: "سال تجربه" },
+    { number: 24, label: "پشتیبانی" }
+  ],
+  gallery: {
+    title: "گالری",
+    titleHighlight: "کارها",
+    subtitle: "نمونه‌ها",
+    items: [
+      { title: "پروژه ۱", bg: "linear-gradient(135deg,#667eea,#764ba2)" },
+      { title: "پروژه ۲", bg: "linear-gradient(135deg,#f093fb,#f5576c)" },
+      { title: "پروژه ۳", bg: "linear-gradient(135deg,#4facfe,#00f2fe)" },
+      { title: "پروژه ۴", bg: "linear-gradient(135deg,#43e97b,#38f9d7)" },
+      { title: "پروژه ۵", bg: "linear-gradient(135deg,#fa709a,#fee140)" },
+      { title: "پروژه ۶", bg: "linear-gradient(135deg,#30cfd0,#330867)" }
+    ]
+  },
+  contact: {
+    address: "تهران",
+    phone: "۰۲۱-۱۲۳۴۵۶۷۸",
+    email: "info@example.com",
+    hours: "۹ تا ۱۸"
+  },
+  footer: {
+    text: "© ۱۴۰۴ سایت من"
+  }
+};
+
+const { settings, hero, about, services, stats, gallery, contact, footer } = siteData;
+
+const app = document.getElementById('app');
+
+app.innerHTML = `
+  <style>
+    :root{
+      --primary:${settings.primaryColor};
+      --secondary:${settings.secondaryColor};
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Tahoma, sans-serif;
+      background:#f7f9fc;
+      color:#1f2937;
+      direction:rtl;
+    }
+    a{text-decoration:none}
+    .container{width:min(1180px,90%);margin:0 auto}
+    header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.85);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-weight:700;font-size:1.2rem;color:#111827;
+    }
+    .logo{font-size:1.6rem}
+    .nav-links{
+      display:flex;gap:24px;align-items:center;
+      flex-wrap:wrap;
+    }
+    .nav-links a{
+      color:#374151;font-weight:600;
+    }
+    .hero{
+      padding:80px 0 50px;
+      background:linear-gradient(135deg, var(--primary), var(--secondary));
+      color:#fff;
+    }
+    .hero-wrap{
+      display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center;
+    }
+    .hero h1{
+      font-size:clamp(2.3rem,4vw,4rem);margin:0 0 18px;line-height:1.2;
+    }
+    .hero p{
+      font-size:1.1rem;line-height:2;color:rgba(255,255,255,.9);
+      margin-bottom:28px;
+    }
+    .hero-actions{
+      display:flex;gap:16px;flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-block;padding:16px 26px;border-radius:999px;
+      font-weight:700;transition:.2s ease;
+      border:1px solid transparent;
+    }
+    .btn.primary{
+      background:#fff;color:var(--primary);
+    }
+    .btn.secondary{
+      background:transparent;color:#fff;border-color:rgba(255,255,255,.7);
+    }
+    .hero-card{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:24px;padding:24px;
+      box-shadow:0 20px 45px rgba(0,0,0,.15);
+    }
+    .mini-box{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px;
+    }
+    .mini{
+      background:rgba(255,255,255,.08);padding:18px;border-radius:18px;
+      text-align:center;border:1px solid rgba(255,255,255,.12);
+    }
+    .mini strong{display:block;font-size:1.8rem;margin-bottom:6px}
+    section{padding:80px 0}
+    .section-head{text-align:center;margin-bottom:36px}
+    .section-head h2{font-size:2rem;margin:0 0 10px}
+    .section-head p{color:#6b7280;margin:0}
+    .section-head .highlight{color:var(--primary)}
+    .about-grid,.services-grid,.stats-grid,.gallery-grid{
+      display:grid;gap:24px;
+    }
+    .about-grid{grid-template-columns:repeat(3,1fr)}
+    .services-grid{grid-template-columns:repeat(4,1fr)}
+    .stats-grid{grid-template-columns:repeat(4,1fr)}
+    .gallery-grid{grid-template-columns:repeat(3,1fr)}
+    .card{
+      background:#fff;border-radius:20px;padding:24px;
+      box-shadow:0 12px 28px rgba(15,23,42,.08);
+      border:1px solid rgba(15,23,42,.05);
+    }
+    .info-card{
+      text-align:center;
+    }
+    .info-card .icon{
+      width:64px;height:64px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(135deg, var(--primary), var(--secondary));
+      color:#fff;font-size:2rem;margin:0 auto 18px;
+    }
+    .info-card h3{margin:8px 0}
+    .stat{
+      text-align:center;padding:30px 18px;background:linear-gradient(135deg,#fff,#f3f4f6);
+      border-radius:18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.04);
+    }
+    .stat strong{display:block;font-size:2.2rem;color:var(--primary);margin-bottom:8px}
+    .gallery-item{
+      min-height:220px;border-radius:20px;display:flex;align-items:flex-end;
+      padding:24px;color:#fff;font-weight:700;font-size:1.2rem;
+      box-shadow:0 18px 32px rgba(15,23,42,.12);
+    }
+    .contact-box{
+      background:#fff;border-radius:24px;padding:28px;
+      display:grid;grid-template-columns:repeat(2,1fr);gap:22px;
+      box-shadow:0 18px 30px rgba(15,23,42,.08);
+    }
+    .contact-info{display:grid;gap:12px;color:#475569}
+    .contact-item strong{display:block;color:#111827;margin-bottom:4px}
+    footer{
+      background:#0f172a;color:#fff;padding:28px 0;text-align:center;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    @media (max-width: 900px){
+      .hero-wrap,.about-grid,.services-grid,.stats-grid,.gallery-grid,.contact-box{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+    @media (max-width: 640px){
+      .hero-wrap,.about-grid,.services-grid,.stats-grid,.gallery-grid,.contact-box{
+        grid-template-columns:1fr;
+      }
+      .nav{flex-direction:column;gap:14px}
+      .hero{padding-top:50px}
+      .hero-actions{flex-direction:column;align-items:stretch}
+      .btn{width:100%;text-align:center}
+    }
+  </style>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="logo">${settings.logo}</span>
+        <span>${settings.siteName}</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">درباره</a>
+        <a href="#services">خدمات</a>
+        <a href="#gallery">گالری</a>
+        <a href="#contact">تماس</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <h1>${hero.title}</h1>
+        <p>${hero.subtitle}</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="${hero.btn1Link}">${hero.btn1Text}</a>
+          <a class="btn secondary" href="${hero.btn2Link}">${hero.btn2Text}</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>چرا ما؟</h3>
+        <div class="mini-box">
+          <div class="mini"><strong>98%</strong><span>رضایت</span></div>
+          <div class="mini"><strong>24/7</strong><span>پشتیبانی</span></div>
+          <div class="mini"><strong>5k+</strong><span>کارها</span></div>
+          <div class="mini"><strong>10+</strong><span>تیم</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>${about.title} <span class="highlight">${about.titleHighlight}</span></h2>
+        <p>${about.subtitle}</p>
+      </div>
+
+      <div class="about-grid">
+        ${about.cards.map(card => `
+          <div class="card info-card">
+            <div class="icon">${card.icon}</div>
+            <h3>${card.title}</h3>
+            <p>${card.text}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>${services.title} <span class="highlight">${services.titleHighlight}</span></h2>
+        <p>${services.subtitle}</p>
+      </div>
+
+      <div class="services-grid">
+        ${services.cards.map(card => `
+          <div class="card">
+            <div class="icon">${card.icon}</div>
+            <h3>${card.title}</h3>
+            <p>${card.text}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>آمار</h2>
+      </div>
+
+      <div class="stats-grid">
+        ${stats.map(stat => `
+          <div class="stat">
+            <strong>${stat.number}</strong>
+            <span>${stat.label}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <h2>${gallery.title} <span class="highlight">${gallery.titleHighlight}</span></h2>
+        <p>${gallery.subtitle}</p>
+      </div>
+
+      <div class="gallery-grid">
+        ${gallery.items.map(item => `
+          <div class="gallery-item" style="background:${item.bg}">
+            ${item.title}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>تماس <span class="highlight">با ما</span></h2>
+      </div>
+
+      <div class="contact-box">
+        <div class="contact-info">
+          <div class="contact-item">
+            <strong>آدرس</strong>
+            <span>${contact.address}</span>
+          </div>
+          <div class="contact-item">
+            <strong>تلفن</strong>
+            <span>${contact.phone}</span>
+          </div>
+          <div class="contact-item">
+            <strong>ایمیل</strong>
+            <span>${contact.email}</span>
+          </div>
+          <div class="contact-item">
+            <strong>ساعت کاری</strong>
+            <span>${contact.hours}</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>پیام خود را بفرستید</h3>
+          <form>
+            <input type="text" placeholder="نام شما" style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:12px;margin:10px 0;">
+            <input type="email" placeholder="ایمیل شما" style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:12px;margin:10px 0;">
+            <textarea placeholder="پیام شما" rows="4" style="width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:12px;margin:10px 0;"></textarea>
+            <button type="submit" style="width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-weight:700;cursor:pointer;">ارسال پیام</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      ${footer.text}
+    </div>
+  </footer>
+`;
+</script>
